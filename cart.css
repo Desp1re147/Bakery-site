@@ -1,0 +1,231 @@
+@import url('contacts.css');
+
+/* Базовые настройки страницы */
+body {
+    background-color: #FFFFFF;
+    background-image: url('png/frog-pattern.png');
+    background-repeat: repeat;
+    background-size: 400px;
+    margin: 0;
+}
+
+.cart-page {
+    padding: 40px 5% 100px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 100px;
+    color: #E3CBA9;
+    margin-bottom: 50px;
+    margin-top: 0px;
+    text-align: center;
+    text-shadow: 2px 2px 0px #825c46, -1px -1px 0px #fff;
+}
+
+/* Сетка: Товары (слева) + Форма (справа) */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* =========================================
+   ЛЕВАЯ ЧАСТЬ: СПИСОК ТОВАРОВ
+   ========================================= */
+.cart-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.cart-item {
+    background: #E3CBA9;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 10px 10px 0px #663016;
+    gap: 20px;
+}
+
+.cart-item img {
+    width: 80px;
+    object-fit: cover;
+    background: #f4e8d8;
+}
+
+.c-info {
+    flex-grow: 1;
+}
+
+.c-info h3 {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 32px;
+    color: #663016;
+    margin: 0 0 5px 0;
+}
+
+.c-price {
+    font-family: 'Obstow', sans-serif;
+    font-size: 20px;
+    color: #8B4513;
+    margin: 0;
+}
+
+/* Кнопки плюс/минус */
+.c-quantity {
+    display: flex;
+    align-items: center;
+    background: #E3CBA9;
+    border: 2px solid #663016;
+    border-radius: 25px;
+    padding: 5px 10px;
+}
+
+.qty-btn {
+    background: none;
+    border: none;
+    font-family: 'Obstow', sans-serif;
+    font-size: 24px;
+    color: #663016;
+    cursor: pointer;
+    padding: 0 10px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    color: #d15a22;
+}
+
+.qty-num {
+    font-family: 'Obstow', sans-serif;
+    font-size: 22px;
+    color: #663016;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
+
+.c-total {
+    font-family: 'Obstow', sans-serif;
+    font-size: 24px;
+    color: #663016;
+    font-weight: bold;
+    min-width: 110px;
+    text-align: right;
+}
+
+/* Кнопка удаления */
+.c-remove-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #663016;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.2s;
+}
+
+.c-remove-btn:hover {
+    color: red;
+    transform: scale(1.2);
+}
+
+/* =========================================
+   ПРАВАЯ ЧАСТЬ: ФОРМА ДОСТАВКИ
+   ========================================= */
+.cart-form-container {
+    background: #E3CBA9;
+    padding: 40px;
+    box-shadow: 10px 10px 0px #663016;
+}
+
+.cart-form-container h2 {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 45px;
+    color: #663016;
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-family: 'Obstow', sans-serif;
+    font-size: 20px;
+    color: #663016;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.input-group input, 
+.input-group textarea {
+    font-family: 'Obstow', sans-serif;
+    font-size: 18px;
+    padding: 15px;
+    border: 2px solid #663016;
+    background: #fdfaf6;
+    color: #663016;
+    outline: none;
+}
+
+.input-group input:focus, 
+.input-group textarea:focus {
+    background: #E3CBA9;
+}
+
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid #663016;
+    padding-top: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.summary-text {
+    font-family: 'Obstow', sans-serif;
+    font-size: 26px;
+    color: #663016;
+    font-weight: bold;
+}
+
+.summary-total {
+    font-family: 'Obstow', sans-serif;
+    font-size: 36px;
+    color: #663016;
+    font-weight: bold;
+}
+
+.submit-order-btn {
+    width: 100%;
+    background-color: #663016;
+    color: #E3CBA9;
+    border: none;
+    padding: 20px;
+    font-family: 'Obstow', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-order-btn:hover {
+    background-color: #4a220f;
+    transform: translateY(-3px);
+}
+
+/* Фикс для футера */
+.footer {
+    position: relative;
+    z-index: 10;
+}

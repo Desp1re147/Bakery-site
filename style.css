@@ -1,0 +1,682 @@
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+@font-face {
+    font-family: 'Obstow';
+    src: url('fonts/OBSTOW_BOLD.woff2') format('woff2'),
+         url('fonts/OBSTOW_BOLD.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vinograd-Filled';
+    src: url('fonts/TMVINOGRAD-FILLED.woff2') format('woff2'),
+         url('fonts/TMVINOGRAD-FILLED.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vinograd-Regular';
+    src: url('fonts/TMVINOGRAD-REGULAR.woff2') format('woff2'),
+         url('fonts/TMVINOGRAD-REGULAR.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vinograd-FB';
+    src: url('fonts/TMVINOGRAD-FILLEDOBLIQUE.woff2') format('woff2'),
+         url('fonts/TMVINOGRAD-FILLEDOBLIQUE.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --brown-dark: #4b2c20;
+    --brown-accent: #8c5a3c;
+    --beige: #f4ece4;
+    --beige-light: #eaddca;
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+body { 
+    margin: 0; 
+    font-family: 'Obstow', Arial, sans-serif;
+}
+
+.container { 
+    margin: 0 auto; 
+    padding: 40px 20px;
+    max-width: 1405px;
+}
+
+/* ============================
+   HERO (ПЕРВЫЙ ЭКРАН И ШАПКА)
+   ============================ */
+.hero {
+    background-image: url('png/main-photo.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    padding: 20px 50px;
+    text-shadow: 4px 4px 4px #663016
+}
+
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+nav {
+    margin-left: -50px;
+}
+
+nav a { 
+    color: #E3CBA9; 
+    text-decoration: none; 
+    margin: 0 35px; 
+    font-weight: bold;
+    font-family: 'Obstow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+/* --- СТИЛИ ДЛЯ SVG ИКОНОК --- */
+.nav-link-with-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; 
+    filter: drop-shadow(4px 4px 4px #663016);
+}
+
+.nav-link-with-icon svg{
+    margin-top: 8.2px;
+}
+
+
+.Logo {
+    display: flex;
+    filter: drop-shadow(4px 2px 2px #663016);
+}
+
+/* Анимация стрелочки вниз при наведении */
+.nav-link-with-icon:hover .icon-arrow {
+    transform: translateY(3px);
+}
+
+.cart-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    filter: drop-shadow(4px 4px 4px #663016);
+    margin-right: 30px;
+    margin-top: 0px;
+}
+
+.cart-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Отключаем клики по самим путям SVG, чтобы не мешать кнопке */
+svg {
+    pointer-events: none;
+}
+/* ---------------------------- */
+
+.hero-content { 
+    margin-top: 100px; 
+    max-width: 1000px; 
+    color: #E3CBA9;
+    margin-left: 20px;
+}
+
+.hero-content h1 { 
+    font-family: 'Vinograd-Filled'; 
+    font-size: 70px; 
+    line-height: 1.1; 
+    color: #E3CBA9;
+    font-weight: 10;
+}
+
+.hero-content p {
+    font-size: 27px;
+    max-width: 600px;
+    margin-top: -20px;
+    font-weight: 10;
+}
+
+.btn-main { 
+    background: #984F2C; 
+    border: none; 
+    color: white;
+    padding: 12px 40px; 
+    border-radius: 500px; 
+    font-weight: bold; 
+    cursor: pointer;
+    margin-top: 20px; 
+    font-size: 30px;
+    transition: background 0.3s ease;
+    font-family: 'Obstow', Arial, sans-serif;
+    text-shadow: 4px 4px 4px #663016;
+    box-shadow: 4px 4px 4px #663016;
+}
+
+.btn-main:hover {
+    background: #6e432a;
+}
+
+/* ============================
+   CATALOG (КАТАЛОГ ПРОДУКЦИИ)
+   ============================ */
+.title-decor {  
+    text-decoration: underline; 
+    margin-top: 20px;
+    text-underline-offset: 8px;
+    letter-spacing: 2px; 
+    margin-bottom: 60px; 
+    font-size: 70px;
+    font-family: 'Vinograd-Filled';
+    font-weight: 500;
+    color: #663016;;
+}
+
+.catalog-grid { 
+    display: grid; 
+    gap: 40px 20px; 
+    margin-top: -20px; 
+}
+
+/* Точное позиционирование карточек товаров в 5-ти колоночной сетке */
+.catalog-grid .cat-card:nth-child(1) { grid-column: 1 ; grid-row: 1; } /* ХЛЕБ */
+.catalog-grid .cat-card:nth-child(2) { grid-column: 2; grid-row: 1; } /* ПЕЧЕНЬЕ */
+.catalog-grid .cat-card:nth-child(3) { grid-column: 3; grid-row: 1; } /* ВЫПЕЧКА */
+
+
+.cat-card { 
+    /* background-color: var(--brown-dark); */ /* УБРАН КОРИЧНЕВЫЙ ФОН */
+    background-color: transparent; /* Сделать фон прозрачным. */
+    height: 300px; /* Задаем высоту карточки, чтобы изображение было видимым. */
+    position: relative;
+    display: flex; 
+    align-items: flex-end; /* Это сохраняет текст внизу. */
+    padding: 15px;
+    /* border-radius: 8px; */ /* BORDER-RADIUS ТЕПЕРЬ НЕ НУЖЕН БЕЗ ФОНА */
+    overflow: visible; /* Чтобы изображения были видимы, даже если контейнер меньше. */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1; /* Чтобы текст был выше изображения. */
+}
+
+.cat-card:hover { transform: translateY(-5px); }
+
+/* Убраны старые стили для жестких размеров изображений. */
+/*
+.cat-card img {
+    height: 250px;
+    width: 350px;
+}
+*/
+
+.cat-img { 
+    position: center; /* Делаем фоном контейнера */
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 300px;
+    object-fit: contain; /* Сохранить корзину неискаженной. */
+    /* pointer-events: none; */ /* УБРАН POINTER-EVENTS: NONE, ТЕПЕРЬ КЛИКАБЕЛЬНО. */
+    z-index: 1;
+}
+
+/* === ШАГИ === */
+.steps-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Расстояние между текстом и линиями */
+    font-family: 'Vinograd-Filled';
+    font-size: 70px;
+    color: #663016;
+    margin-bottom: 5px;
+    font-weight: normal;
+    margin-top: -40px;
+}
+
+/* Создаем те самые линии слева и справа */
+.steps-title::before,
+.steps-title::after {
+    content: "";
+    display: block;
+    flex: 0 1 150px; /* Базовая ширина линии 150px, но может сжиматься на узких экранах */
+    height: 2px; /* Толщина линии */
+    background-color: #663016; /* Цвет линии */
+}
+
+.steps-subtitle {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #663016;
+}
+
+.steps-grid {
+    display: grid;
+    gap: 40px 80px; /* Отступы: 40px по вертикали, 80px по горизонтали */
+    margin-left: 300px;
+}
+
+.steps-grid .step-item:nth-child(1) { grid-column: 1 ; grid-row: 1; }
+.steps-grid .step-item:nth-child(2) { grid-column: 2; grid-row: 1; }
+.steps-grid .step-item:nth-child(3) { grid-column: 1; grid-row: 2; }
+.steps-grid .step-item:nth-child(4) { grid-column: 2; grid-row: 2; }
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Отступ между кружком с цифрой и заголовком */
+    margin-bottom: 10px;
+}
+
+/* Стилизация кружка с номером */
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: var(--brown-accent); /* Темно-коричневый фон */
+    color: white; /* Белый цвет цифры */
+    border-radius: 50%;
+    font-family: 'Vinograd-Filled'; /* Шрифт как у заголовков */
+    font-size: 50px;
+    flex-shrink: 0; /* Запрещаем кружку сплющиваться */
+}
+
+.step-header h3 {
+    font-family: 'Vinograd-Filled';
+    font-size: 70px;
+    color: #663016;
+    margin: 0;
+    font-weight: normal;
+}
+
+/* Настройка текста внутри шагов */
+.step-item p {
+    margin-left: 5px;
+    margin-top: 0px;
+    font-size: 35px;
+    line-height: 1.1;
+    color: var(--brown-accent);
+    font-weight: bold;
+    /* Запрещаем автоматический перенос. Текст будет ломаться ТОЛЬКО по тегам <br> */
+    white-space: nowrap; 
+}
+
+/* Формируем "перевернутую пирамиду" с помощью transform */
+
+.step-item:nth-child(1) {
+    /* Сдвигаем 1-й пункт левее */
+    transform: translateX(-260px); 
+}
+
+.step-item:nth-child(2) {
+    /* Сдвигаем 2-й пункт правее */
+    transform: translateX(0px);  
+}
+
+.step-item:nth-child(3) {
+    /* Сдвигаем 3-й пункт ближе к центру (вправо) */
+    transform: translateX(-150px);  
+}
+
+.step-item:nth-child(4) {
+    /* Сдвигаем 4-й пункт ближе к центру (влево) */
+    transform: translateX(-120px); 
+}
+
+
+/* ============================
+   ABOUT (О ПЕКАРНЕ) — НОВАЯ ВЕРСИЯ
+   ============================ */
+.about-section { 
+    background: var(--brown-dark); 
+    height: 650px;
+    position: relative; /* Важно: база для абсолютных элементов */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Прижимает текст к правой части */
+}
+
+.about-content {
+    position: relative;
+    z-index: 10; /* Поднимаем текст выше всех картинок */
+    width: 55%; /* Занимает правую половину секции */
+    margin-right: 5%; /* Отступ от правого края экрана */
+}
+
+.about-content h2 { 
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-weight: normal;
+    font-size: 60px;
+    color: #9F6A4A;
+    margin-bottom: 30px;
+    margin-left: -400px;
+    margin-top: -70px;
+}
+
+.about-text-wrapper {
+    position: relative;
+}
+
+.about-content p {
+    line-height: 1.2;
+    color: #E3CBA9;
+    font-size: 28px;
+    max-width: 600px;
+    margin-left: -300px;
+    text-shadow: 4px 4px 4px #663016
+}
+
+/* Жаба под текстом */
+.about-frog {
+    position: absolute;
+    bottom: -350px;
+    left: -50px;
+    z-index: -1; /* Жаба чуть под текстом */
+    margin-left: -500px;
+}
+
+
+/* Стили для "фоновых" картинок коллажа */
+.about-background-images img {
+    position: absolute;
+    object-fit: cover;
+}
+
+.img-bg-1 { 
+    width: 500px;
+    height: 400px; 
+    top: 50px;
+    left: -50px; /* Уходит немного за левый край экрана */
+    z-index: 1;
+    transform: rotate(-3deg); /* Легкий наклон для стиля */
+    margin-left: 1100px;
+}
+
+.img-bg-2 { 
+    width: 350px; 
+    bottom: 50px; 
+    left: 250px; /* Перекрывает первую картинку */
+    z-index: 2;
+    transform: rotate(2deg);
+    margin-left: 600px;
+}
+
+/* ============================
+   LOCATIONS (ПУНКТЫ ВЫДАЧИ) — НАЛОЖЕНИЕ, ПРЯМЫЕ УГЛЫ
+   ============================ */
+.locations { 
+    display: flex; 
+    background: #fff; 
+    /* Убрали vertical padding, оставили только горизонтальный (10%) */
+    padding: 0 10%; 
+    gap: 0; 
+    /* Задали явную высоту для всей секции. 
+       Сделали её больше (было 500px, стало 650px) */
+    height: 650px; 
+    overflow: hidden;
+}
+
+.loc-image { 
+    flex: 0 0 40%;
+    /* Изображение занимает 100% высоты родительской секции */
+    height: 100%; 
+    z-index: 1;
+    margin-left: -70px;
+}
+
+.loc-image img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+    /* Убрали скругления углов (border-radius) */
+    border-radius: 0; 
+}
+
+.loc-content { 
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* Убрали vertical alignment center, контент прижат к верху */
+    justify-content: flex-start; 
+    position: relative;
+    z-index: 2;
+}
+
+.loc-title {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 65px; 
+    color: #663016;
+    line-height: 1;
+    font-weight: normal;
+    /* Отступ сверху, чтобы заголовок не прилипал к верхней границе секции */
+    margin: 40px 0 50px 20px; 
+}
+
+.loc-info-box {
+    background: #e5d1b8;
+    padding: 30px 40px; 
+    /* Отрицательный отступ слева для наложения на фото */
+    margin-left: -80px; 
+    /* Убрали скругления углов (border-radius) */
+    border-radius: 0;
+    /* Убрали тень (box-shadow) для строгого стиля */
+    box-shadow: none; 
+}
+
+.loc-item { 
+    margin-bottom: 25px; 
+}
+
+.loc-item:last-child {
+    margin-bottom: 0;
+}
+
+.loc-item h3 { 
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 45px; 
+    color: #663016;
+    margin: 0 0 5px 0; 
+    font-weight: normal;
+}
+
+.loc-item p {
+    font-family: 'Obstow', Arial, sans-serif;
+    font-size: 20px; 
+    color: #663016;
+    margin: 3px 0;
+    line-height: 1.2;
+}
+
+/* ============================
+   FOOTER (ПОДВАЛ)
+   ============================ */
+.footer { 
+    background: var(--brown-dark); 
+    color: white; 
+    padding: 50px 10%; 
+    display: flex; 
+    justify-content: space-between;
+}
+
+.f-logo { 
+    font-family: 'Vinograd-Regular'; 
+    font-size: 70px; 
+    margin-bottom: 10px;
+    margin-left: -70px;
+    margin-top: -10px;
+    color: #E3CBA9;
+}
+
+.footer-main p {
+    margin: 5px 0;
+    opacity: 0.9;
+    font-family: 'Vinograd-Regular'; 
+    font-size: 50px;
+    margin-left: -70px;
+    color: #E3CBA9;
+}
+
+.f-links { 
+    display: flex; 
+    flex-direction: column;  
+}
+
+.f-links h4 { 
+    font-size: 30px;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    color: #E3CBA9;
+}
+
+.f-links a { 
+    color: white; 
+    text-decoration: none; 
+    margin-bottom: 8px; 
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    font-size: 25px;
+    color: #E3CBA9;
+}
+
+.f-links a:hover {
+    opacity: 1;
+}
+
+.f-socials {
+    margin-top: 15px;
+    font-size: 1.5rem;
+    display: flex;
+    gap: 15px;
+    margin-left: -70px;
+}
+
+/* =========================================
+   ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN) - ИСПРАВЛЕННОЕ
+   ========================================= */
+
+/* Контейнер для меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Скрытое меню по умолчанию */
+.dropdown-menu {
+    margin-top: 10px;
+    margin-left: -10px;
+    
+    /* ИСПРАВЛЕНИЕ: Вместо display: none используем прозрачность для плавности */
+    opacity: 0;
+    visibility: hidden;
+    display: flex; /* Теперь всегда flex, но невидимый */
+    transform: translateY(10px); /* Небольшое смещение для эффекта появления */
+    transition: all 0.3s ease; /* Плавность появления */
+    
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: #E3CBA9;
+    border: 2px solid #663016;
+    min-width: 180px;
+    z-index: 100;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.dropdown-menu a{
+    color: #663016;
+    text-shadow: 0px 0px 0px #663016
+    
+}
+
+/* ИСПРАВЛЕНИЕ: Невидимый мост, чтобы меню не пропадало при переносе мышки */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Перекрывает зону margin-top */
+    left: 0;
+    width: 100%;
+    height: 15px;
+}
+
+/* Показываем меню при наведении на родителя */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Настройки ссылок внутри меню */
+.dropdown-menu a {
+    color: #663016;
+    font-family: 'Obstow', Arial, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 20px;
+    text-decoration: none;
+    filter: none;
+    transition: background-color 0.2s ease;
+    
+    position: relative; 
+    display: flex;
+    align-items: center;
+}
+
+/* Эффект при наведении */
+.dropdown-menu a:hover {
+    background-color: #d1b791;
+}
+
+/* Создаем перегородки (полоски) */
+.dropdown-menu a:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%; /* Поправил на 10%, чтобы было симметрично */
+    height: 2px;
+    background-color: #663016;
+    opacity: 0.3;
+}
+
+/* Анимация стрелочки */
+.nav-link-with-icon svg {
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .nav-link-with-icon svg {
+    transform: rotate(180deg);
+}
+
+
+html {
+    scroll-behavior: smooth;
+}

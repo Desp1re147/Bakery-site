@@ -1,0 +1,211 @@
+/* Импорт базовых стилей главной страницы */
+@import url('style.css');
+
+/* =========================================
+   HEADER С ФОНОМ ДЛЯ КОНТАКТОВ
+   ========================================= */
+.header-with-bg {
+    background-image: url('png/header-bread-contacts.png'); /* Путь к текстуре хлеба */
+    background-size: cover;
+    background-position: center;
+    height: 130px;
+    padding: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Принудительное включение теней для иконок */
+
+.cart-btn {
+    filter: drop-shadow(4px 4px 4px #663016);
+    margin-right: -60px;
+}
+
+.nav-link-with-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    filter: drop-shadow(4px 4px 4px #663016);
+    margin-left: -0px;
+}
+
+.header-with-bg a{
+    filter: drop-shadow(4px 4px 4px #663016);
+}
+
+.Logo {
+    margin-left: -90px;
+    filter: drop-shadow(0px 0px 0px #FFFFFF);
+}
+
+/* =========================================
+   КОНТЕНТ СТРАНИЦЫ
+   ========================================= */
+.contacts-title {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 110px;
+    color: #E3CBA9;
+    margin: 0px 0 10px 0;
+    font-weight: normal;
+    filter: drop-shadow(4px 2px 2px #663016);
+}
+
+.contacts-info p {
+    font-family: 'Obstow', Arial, sans-serif;
+    font-size: 32px;
+    color: #663016;
+    font-weight: bold;
+    margin: 0px 0;
+    margin-left: 20px;
+}
+
+/* Сетка пунктов выдачи */
+.pickup-section {
+    background-color: #e5d1b8;
+    padding: 80px 10%;
+    margin-top: 0px;
+}
+
+.pickup-header {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 120px;
+    color: #663016;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: -50px;
+    font-weight: normal;
+}
+
+.pickup-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: -20px;
+}
+
+.pickup-card {
+    background-color: #ffffff;
+    flex: 1;
+    padding: 40px 30px;
+    border-radius: 0;
+}
+
+.pickup-card h3 {
+    font-family: 'Vinograd-Filled', sans-serif;
+    font-size: 64px;
+    color: #663016;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.1;
+    font-weight: normal;
+    margin-top: -20px
+}
+
+.pickup-card p {
+    font-family: 'Obstow', Arial, sans-serif;
+    font-size: 25px;
+    line-height: 1.2;
+    color: #663016;
+}
+
+/* =========================================
+   ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN)
+   ========================================= */
+
+/* =========================================
+   ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN)
+   ========================================= */
+/* =========================================
+   ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN) - ИСПРАВЛЕННОЕ
+   ========================================= */
+
+/* Контейнер для меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Скрытое меню по умолчанию */
+.dropdown-menu {
+    margin-top: 10px;
+    margin-left: -10px;
+    
+    /* ИСПРАВЛЕНИЕ: Вместо display: none используем прозрачность для плавности */
+    opacity: 0;
+    visibility: hidden;
+    display: flex; /* Теперь всегда flex, но невидимый */
+    transform: translateY(10px); /* Небольшое смещение для эффекта появления */
+    transition: all 0.3s ease; /* Плавность появления */
+    
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: #E3CBA9;
+    border: 2px solid #663016;
+    min-width: 180px;
+    z-index: 100;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+/* ИСПРАВЛЕНИЕ: Невидимый мост, чтобы меню не пропадало при переносе мышки */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Перекрывает зону margin-top */
+    left: 0;
+    width: 100%;
+    height: 15px;
+}
+
+/* Показываем меню при наведении на родителя */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Настройки ссылок внутри меню */
+.header-with-bg .dropdown-menu a {
+    color: #663016;
+    font-family: 'Obstow', Arial, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 20px;
+    text-decoration: none;
+    filter: none;
+    transition: background-color 0.2s ease;
+    
+    position: relative; 
+    display: flex;
+    align-items: center;
+}
+
+/* Эффект при наведении */
+.header-with-bg .dropdown-menu a:hover {
+    background-color: #d1b791;
+}
+
+/* Создаем перегородки (полоски) */
+.header-with-bg .dropdown-menu a:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%; /* Поправил на 10%, чтобы было симметрично */
+    height: 2px;
+    background-color: #663016;
+    opacity: 0.3;
+}
+
+/* Анимация стрелочки */
+.nav-link-with-icon svg {
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .nav-link-with-icon svg {
+    transform: rotate(180deg);
+}
+
+

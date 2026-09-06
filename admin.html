@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель — Хлебная жаба</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="icon" href="svg/Frog.svg" type="image/x-icon">
+</head>
+<body>
+
+<div class="admin-container">
+    <h1>Панель управления</h1>
+
+    <h2>Добавить новый товар</h2>
+    <form id="add-product-form" class="add-product-form">
+        <div class="input-group">
+            <label>Название</label>
+            <input type="text" id="p-title" required placeholder="Хлеб Бородинский">
+        </div>
+        <div class="input-group">
+            <label>Цена (BYN)</label>
+            <input type="number" step="0.01" id="p-price" required placeholder="4">
+        </div>
+        <div class="input-group">
+            <label>Категория</label>
+            <select id="p-category" required>
+                <option value="" disabled selected>Выберите категорию</option>
+                <option value="bread">Хлеб</option>
+                <option value="cookies">Печенье</option>
+                <option value="pastry">Выпечка</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Вес (гр)</label>
+            <input type="text" id="p-weight" placeholder="400 гр">
+        </div>
+        
+        <div class="input-group full-width">
+            <label>Изображение товара</label>
+            <input type="file" id="p-img-file" accept="image/*" required>
+            <img id="img-preview" src="#" alt="Превью">
+        </div>
+        
+        <div class="input-group">
+            <label>Калории</label>
+            <input type="text" id="p-calories" placeholder="365 Ккал / 100 гр">
+        </div>
+        <div class="input-group">
+            <label>Белки/Жиры/Углеводы</label>
+            <input type="text" id="p-energy" placeholder="Белки: 4,91 г. Жиры: 23,38 г. Углеводы: 35,88 г.">
+        </div>
+        <div class="input-group full-width">
+            <label>Состав</label>
+            <textarea id="p-composition" rows="2" placeholder="Перечислите ингредиенты..."></textarea>
+        </div>
+        <button type="submit" id="submit-btn" class="submit-btn">СОХРАНИТЬ ТОВАР В БАЗУ</button>
+    </form>
+
+    <hr>
+
+    <h2>Текущий ассортимент (Удаление)</h2>
+    <div id="products-list" class="products-list">
+        </div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:3000/api/products';
+    const form = document.getElementById('add-product-form');
+    const listContainer = document.getElementById('products-list');
+    const fileInput = document.getElementById('p-img-file');
+    const imgPreview = document.getElementById('img-preview');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Переменная для хранения Base64 строки изображения
+    let base64ImageString = "";
+
+    // Оживляем превью изображения при выборе файла
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Показываем превью
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = 'block';
+                // Сохраняем строку Base64
+                base64ImageString = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        } else {
+            imgPreview.style.display = 'none';
+            base64ImageString = "";
+        }
+    });
+
+    // 1. Загрузка товаров из БД
+    async function fetchProducts() {
+        listContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">Загрузка списка...</p>';
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error('Ошибка сервера');
+            const products = await response.json();
+            renderProducts(products);
+        } catch (err) {
+            console.error('Ошибка загрузки:', err);
+            listContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:red;">Не удалось загрузить список товаров. Проверьте сервер.</p>';
+        }
+    }
+
+    // 2. Отрисовка товаров в списке удаления
+    function renderProducts(products) {
+        listContainer.innerHTML = '';
+        if (products.length === 0) {
+            listContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">База данных пуста.</p>';
+            return;
+        }
+
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            // Используем заглушку, если картинки нет (хотя при добавлении она обязательна)
+            const imgSrc = p.img && p.img.startsWith('data:image') ? p.img : 'https://via.placeholder.com/150?text=No+Image';
+            
+            card.innerHTML = `
+                <img src="${imgSrc}" alt="${p.title}">
+                <h3>${p.title}</h3>
+                <p>Категория: <i>${p.category}</i></p>
+                <p>Цена: <b>${p.price.toFixed(2)} BYN</b></p>
+                <button class="delete-btn" onclick="deleteProduct(${p.id}, '${p.title.replace(/'/g, "\\'")}')">УДАЛИТЬ</button>
+            `;
+            listContainer.appendChild(card);
+        });
+    }
+
+    // 3. Обработка отправки формы (Добавление товара)
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Проверка, заполнена ли картинка (Base64)
+        if (!base64ImageString) {
+            alert('Пожалуйста, выберите изображение товара!');
+            return;
+        }
+
+        // Блокируем кнопку, чтобы не нажали дважды
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Сохранение...";
+
+        const newProduct = {
+            title: document.getElementById('p-title').value,
+            // Преобразуем цену в число
+            price: parseFloat(document.getElementById('p-price').value) || 0,
+            category: document.getElementById('p-category').value,
+            // Вставляем накопленную Base64 строку изображения
+            img: base64ImageString,
+            // Вес сохраняем как текст (может быть "400г" или "0.5 л")
+            weight: document.getElementById('p-weight').value || "",
+            composition: document.getElementById('p-composition').value || "",
+            // Калории - число
+            calories: parseInt(document.getElementById('p-calories').value) || 0,
+            energy: document.getElementById('p-energy').value || ""
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newProduct)
+            });
+
+            if (response.ok) {
+                alert('Товар успешно добавлен в базу данных!');
+                form.reset(); // Очистить форму
+                imgPreview.style.display = 'none'; // Скрыть превью
+                base64ImageString = ""; // Сбросить строку картинки
+                fetchProducts(); // Обновить список товаров внизу
+            } else {
+                const errorData = await response.json();
+                alert('Ошибка сервера: ' + (errorData.message || 'Не удалось добавить товар'));
+            }
+        } catch (err) {
+            console.error('Ошибка при отправке:', err);
+            alert('Ошибка сети. Проверьте, запущен ли сервер Node.js');
+        } finally {
+            // Разблокируем кнопку
+            submitBtn.disabled = false;
+            submitBtn.textContent = "СОХРАНИТЬ ТОВАР В БАЗУ";
+        }
+    });
+
+    // 4. Функция удаления товара
+    async function deleteProduct(id, title) {
+        // Добавляем имя товара в подтверждение для безопасности
+        if (!confirm(`Вы точно хотите навсегда удалить "${title}" из базы данных?`)) return;
+
+        try {
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                // Просто обновляем список, alert делать не обязательно, и так видно, что исчез
+                fetchProducts(); 
+            } else {
+                alert('Ошибка сервера при удалении.');
+            }
+        } catch (err) {
+            console.error('Ошибка:', err);
+            alert('Ошибка сети при удалении.');
+        }
+    }
+
+    // ЗАПУСК ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+    fetchProducts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+        :root {
+            --brown: #663016;
+            --beige: #E3CBA9;
+            --light-beige: #fdf5e6;
+            --red: #e74c3c;
+            --dark-red: #c0392b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-beige);
+            color: var(--brown);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 { text-align: center; text-transform: uppercase; margin-top: 0; }
+
+        /* Форма добавления */
+        .add-product-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background: var(--beige);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-weight: bold; margin-bottom: 5px; color: var(--brown); }
+        .input-group input, .input-group select, .input-group textarea {
+            padding: 10px;
+            border: 1px solid var(--brown);
+            border-radius: 5px;
+            box-sizing: border-box; /* Чтобы padding не вылезал за пределы */
+        }
+
+        /* Стилизация поля файла */
+        .input-group input[type="file"] {
+            background: #fff;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .full-width { grid-column: 1 / 3; }
+
+        .submit-btn {
+            grid-column: 1 / 3;
+            background: var(--brown);
+            color: var(--beige);
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .submit-btn:disabled { background: #999; cursor: not-allowed; transform: none; }
+
+        /* Список товаров для удаления */
+        .products-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 2px solid var(--beige);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 { margin: 10px 0; font-size: 18px; color: var(--brown); }
+        .product-card p { margin: 5px 0; font-size: 16px; }
+
+        .delete-btn {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .delete-btn:hover { background: var(--dark-red); }
+
+        hr { border: 0; height: 2px; background: var(--beige); margin: 40px 0; }
+        
+        /* Превью выбранного изображения */
+        #img-preview {
+            max-width: 100%;
+            height: 100px;
+            object-fit: contain;
+            display: none; /* Скрыто по умолчанию */
+            margin-top: 10px;
+            border: 1px solid var(--brown);
+            border-radius: 5px;
+        }
