@@ -25,7 +25,6 @@
 
         h1, h2 { text-align: center; text-transform: uppercase; margin-top: 0; }
 
-        /* Форма добавления */
         .add-product-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -45,7 +44,6 @@
             box-sizing: border-box; /* Чтобы padding не вылезал за пределы */
         }
 
-        /* Стилизация поля файла */
         .input-group input[type="file"] {
             background: #fff;
             padding: 8px;
@@ -71,7 +69,6 @@
         .submit-btn:hover { opacity: 0.9; transform: translateY(-2px); }
         .submit-btn:disabled { background: #999; cursor: not-allowed; transform: none; }
 
-        /* Список товаров для удаления */
         .products-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -117,12 +114,11 @@
 
         hr { border: 0; height: 2px; background: var(--beige); margin: 40px 0; }
         
-        /* Превью выбранного изображения */
         #img-preview {
             max-width: 100%;
             height: 100px;
             object-fit: contain;
-            display: none; /* Скрыто по умолчанию */
+            display: none;
             margin-top: 10px;
             border: 1px solid var(--brown);
             border-radius: 5px;

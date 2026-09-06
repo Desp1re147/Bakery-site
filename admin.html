@@ -72,19 +72,15 @@
     const imgPreview = document.getElementById('img-preview');
     const submitBtn = document.getElementById('submit-btn');
 
-    // Переменная для хранения Base64 строки изображения
     let base64ImageString = "";
 
-    // Оживляем превью изображения при выборе файла
     fileInput.addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                // Показываем превью
                 imgPreview.src = e.target.result;
                 imgPreview.style.display = 'block';
-                // Сохраняем строку Base64
                 base64ImageString = e.target.result;
             }
             reader.readAsDataURL(file);
@@ -94,7 +90,6 @@
         }
     });
 
-    // 1. Загрузка товаров из БД
     async function fetchProducts() {
         listContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">Загрузка списка...</p>';
         try {
@@ -108,7 +103,6 @@
         }
     }
 
-    // 2. Отрисовка товаров в списке удаления
     function renderProducts(products) {
         listContainer.innerHTML = '';
         if (products.length === 0) {
@@ -119,7 +113,6 @@
         products.forEach(p => {
             const card = document.createElement('div');
             card.className = 'product-card';
-            // Используем заглушку, если картинки нет (хотя при добавлении она обязательна)
             const imgSrc = p.img && p.img.startsWith('data:image') ? p.img : 'https://via.placeholder.com/150?text=No+Image';
             
             card.innerHTML = `
@@ -133,31 +126,23 @@
         });
     }
 
-    // 3. Обработка отправки формы (Добавление товара)
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        // Проверка, заполнена ли картинка (Base64)
         if (!base64ImageString) {
             alert('Пожалуйста, выберите изображение товара!');
             return;
         }
 
-        // Блокируем кнопку, чтобы не нажали дважды
         submitBtn.disabled = true;
         submitBtn.textContent = "Сохранение...";
 
         const newProduct = {
             title: document.getElementById('p-title').value,
-            // Преобразуем цену в число
             price: parseFloat(document.getElementById('p-price').value) || 0,
             category: document.getElementById('p-category').value,
-            // Вставляем накопленную Base64 строку изображения
             img: base64ImageString,
-            // Вес сохраняем как текст (может быть "400г" или "0.5 л")
             weight: document.getElementById('p-weight').value || "",
             composition: document.getElementById('p-composition').value || "",
-            // Калории - число
             calories: parseInt(document.getElementById('p-calories').value) || 0,
             energy: document.getElementById('p-energy').value || ""
         };
@@ -171,10 +156,10 @@
 
             if (response.ok) {
                 alert('Товар успешно добавлен в базу данных!');
-                form.reset(); // Очистить форму
-                imgPreview.style.display = 'none'; // Скрыть превью
-                base64ImageString = ""; // Сбросить строку картинки
-                fetchProducts(); // Обновить список товаров внизу
+                form.reset();
+                imgPreview.style.display = 'none';
+                base64ImageString = "";
+                fetchProducts();
             } else {
                 const errorData = await response.json();
                 alert('Ошибка сервера: ' + (errorData.message || 'Не удалось добавить товар'));
@@ -183,15 +168,12 @@
             console.error('Ошибка при отправке:', err);
             alert('Ошибка сети. Проверьте, запущен ли сервер Node.js');
         } finally {
-            // Разблокируем кнопку
             submitBtn.disabled = false;
             submitBtn.textContent = "СОХРАНИТЬ ТОВАР В БАЗУ";
         }
     });
 
-    // 4. Функция удаления товара
     async function deleteProduct(id, title) {
-        // Добавляем имя товара в подтверждение для безопасности
         if (!confirm(`Вы точно хотите навсегда удалить "${title}" из базы данных?`)) return;
 
         try {
@@ -200,7 +182,6 @@
             });
 
             if (response.ok) {
-                // Просто обновляем список, alert делать не обязательно, и так видно, что исчез
                 fetchProducts(); 
             } else {
                 alert('Ошибка сервера при удалении.');
@@ -210,8 +191,6 @@
             alert('Ошибка сети при удалении.');
         }
     }
-
-    // ЗАПУСК ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
     fetchProducts();
 </script>
 

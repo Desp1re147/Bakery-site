@@ -178,24 +178,21 @@
             const summaryTotal = document.getElementById('summary-total');
             const orderForm = document.getElementById('order-form');
             
-            let apiProducts = []; // Здесь будем хранить данные с сервера
+            let apiProducts = [];
 
-            // 1. Функция для получения данных с сервера
             async function fetchProductsAndRender() {
                 try {
                     const response = await fetch('http://localhost:3000/api/products');
                     if (!response.ok) throw new Error('Ошибка при загрузке товаров');
                     
                     apiProducts = await response.json();
-                    renderCart(); // Рисуем корзину только после получения данных
+                    renderCart();
                 } catch (error) {
                     console.error('Не удалось загрузить данные с API:', error);
-                    // Если сервер недоступен, пытаемся отрисовать хотя бы то, что есть в localStorage
                     renderCart(); 
                 }
             }
 
-            // 2. Основная функция отрисовки
             function renderCart() {
                 let cart = JSON.parse(localStorage.getItem('bakery_cart')) || {};
                 const productNames = Object.keys(cart);
@@ -211,12 +208,8 @@
 
                 productNames.forEach(name => {
                     const item = cart[name];
-                    
-                    // Ищем этот товар в данных, пришедших с сервера
-                    // Предполагаем, что в API поле называется 'name', а картинка 'image'
                     const apiItem = apiProducts.find(p => p.title === name);
                     
-                    // Берем картинку из API. Если API не нашло товар — берем из localStorage (запасной вариант)
                     const imageSrc = apiItem ? apiItem.img : item.img;
                     
                     const itemTotal = item.price * item.quantity;
@@ -248,7 +241,6 @@
                 attachCartEvents();
             }
 
-            // 3. Обработка кнопок (остается почти без изменений)
             function attachCartEvents() {
                 let cart = JSON.parse(localStorage.getItem('bakery_cart')) || {};
 
@@ -283,7 +275,6 @@
                 renderCart();
             }
 
-            // 4. Логика оформления заказа
             orderForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
@@ -293,7 +284,6 @@
                     return;
                 }
 
-                // Собираем данные
                 const orderData = {
                     clientName: document.getElementById('d-name').value,
                     clientPhone: document.getElementById('d-phone').value,
@@ -304,7 +294,6 @@
                 };
 
                 try {
-                    // Отправляем запрос на сервер
                     const response = await fetch('http://localhost:3000/api/orders', {
                         method: 'POST',
                         headers: {
@@ -330,7 +319,6 @@
                 }
             });
 
-            // ЗАПУСК: Сначала идем на сервер, потом рисуем
             fetchProductsAndRender();
         });
     </script>

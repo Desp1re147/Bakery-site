@@ -139,8 +139,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const productGrid = document.getElementById('product-grid');
-            
-            // Обрати внимание: category=bread
             fetch('http://localhost:3000/api/products?category=bread')
                 .then(response => {
                     if (!response.ok) throw new Error('Сервер недоступен');
@@ -190,7 +188,6 @@
                         const plusBtn = card.querySelector('.qty-plus');
                         const minusBtn = card.querySelector('.qty-minus');
 
-                        // Функция перерисовки интерфейса карточки
                         const updateUI = (currentCount) => {
                             if (currentCount > 0) {
                                 addBtn.style.display = 'none';
@@ -202,9 +199,7 @@
                             }
                         };
 
-                        // Главная функция изменения количества
                         const changeQuantity = (delta) => {
-                            // 1. Всегда читаем самую свежую корзину из памяти перед изменением!
                             let currentCart = JSON.parse(localStorage.getItem('bakery_cart')) || {};
                             let count = currentCart[productName] ? currentCart[productName].quantity : 0;
                             
@@ -214,7 +209,6 @@
                                 currentCart[productName] = { 
                                     quantity: count, 
                                     price: productPrice 
-                                    // ВАЖНО: Мы больше не сохраняем img, чтобы не лопнул localStorage!
                                 }; 
                             } else {
                                 delete currentCart[productName]; 
@@ -229,12 +223,10 @@
                             }
                         };
 
-                        // При загрузке страницы проверяем, есть ли товар уже в корзине
                         let initialCart = JSON.parse(localStorage.getItem('bakery_cart')) || {};
                         let initialCount = initialCart[productName] ? initialCart[productName].quantity : 0;
                         updateUI(initialCount);
 
-                        // Вешаем события на кнопки
                         addBtn.onclick = () => changeQuantity(1);
                         plusBtn.onclick = () => changeQuantity(1);
                         minusBtn.onclick = () => changeQuantity(-1);

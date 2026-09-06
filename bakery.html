@@ -139,24 +139,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const productGrid = document.getElementById('product-grid');
-            
-            // Корзину мы всё ещё храним в localStorage браузера пользователя
             let cart = JSON.parse(localStorage.getItem('bakery_cart')) || {};
-
-            // Запрашиваем товары с нашего сервера
             fetch('http://localhost:3000/api/products?category=pastry')
                 .then(response => {
                     if (!response.ok) throw new Error('Сервер недоступен');
                     return response.json();
                 })
                 .then(catalog => {
-                    // Если в базе данных (MySQL) пока пусто
                     if (catalog.length === 0) {
                         productGrid.innerHTML = '<p style="text-align:center; font-family:Obstow;">Каталог пуст. Добавьте товары через админ-панель.</p>';
                         return;
                     }
 
-                    // 1. Очищаем сетку и генерируем HTML для каждого товара из базы
                     productGrid.innerHTML = ''; 
                     catalog.forEach(product => {
                         const productHTML = `
@@ -185,7 +179,6 @@
                         productGrid.insertAdjacentHTML('beforeend', productHTML);
                     });
 
-                    // 2. Теперь, когда карточки ТОЧНО существуют на странице, оживляем кнопки
                     document.querySelectorAll('.product-card').forEach(card => {
                         const productName = card.querySelector('.product-title').innerText.trim();
                         const productPrice = parseInt(card.querySelector('.price').innerText);
@@ -198,10 +191,8 @@
                         const plusBtn = card.querySelector('.qty-plus');
                         const minusBtn = card.querySelector('.qty-minus');
 
-                        // Проверяем, есть ли этот товар уже в корзине (в localStorage)
                         let count = cart[productName] ? cart[productName].quantity : 0;
 
-                        // Функция обновления внешнего вида и сохранения в корзину
                         const updateUIAndCart = () => {
                             if (count > 0) {
                                 addBtn.style.display = 'none';
@@ -218,14 +209,11 @@
                                 controls.style.display = 'none';
                                 delete cart[productName]; 
                             }
-                            // Сохраняем обновленную корзину
                             localStorage.setItem('bakery_cart', JSON.stringify(cart));
                         };
 
-                        // Применяем правильный вид при загрузке страницы
                         updateUIAndCart();
 
-                        // Вешаем клики на свежесозданные кнопки
                         addBtn.onclick = () => { count = 1; updateUIAndCart(); };
                         plusBtn.onclick = () => { count++; updateUIAndCart(); };
                         minusBtn.onclick = () => { count--; updateUIAndCart(); };

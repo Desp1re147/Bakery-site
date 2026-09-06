@@ -1,6 +1,5 @@
 @import url('contacts.css');
 
-/* Базовые настройки страницы */
 body {
     background-color: #FFFFFF;
     background-image: url('png/frog-pattern.png');
@@ -25,7 +24,6 @@ body {
     text-shadow: 2px 2px 0px #825c46, -1px -1px 0px #fff;
 }
 
-/* Сетка: Товары (слева) + Форма (справа) */
 .cart-layout {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
@@ -33,9 +31,6 @@ body {
     align-items: start;
 }
 
-/* =========================================
-   ЛЕВАЯ ЧАСТЬ: СПИСОК ТОВАРОВ
-   ========================================= */
 .cart-items-container {
     display: flex;
     flex-direction: column;
@@ -75,7 +70,6 @@ body {
     margin: 0;
 }
 
-/* Кнопки плюс/минус */
 .c-quantity {
     display: flex;
     align-items: center;
@@ -119,7 +113,6 @@ body {
     text-align: right;
 }
 
-/* Кнопка удаления */
 .c-remove-btn {
     background: none;
     border: none;
@@ -135,9 +128,6 @@ body {
     transform: scale(1.2);
 }
 
-/* =========================================
-   ПРАВАЯ ЧАСТЬ: ФОРМА ДОСТАВКИ
-   ========================================= */
 .cart-form-container {
     background: #E3CBA9;
     padding: 40px;
@@ -224,7 +214,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* Фикс для футера */
 .footer {
     position: relative;
     z-index: 10;
